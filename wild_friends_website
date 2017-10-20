@@ -1,0 +1,205 @@
+Date: 10/12 11:07 AM
+
+Change #1: Move Logo to the left and remove white space
+
+   <a> theme.scss.liquid line 3596
+     Old :
+           .site-header__logo-image {
+              display: block;
+
+                @include media-query($medium-up) {
+                margin: 0 auto;
+              }
+            }
+
+      New:
+            .site-header__logo-image {
+                display: block;
+
+                  @include media-query($medium-up) {
+
+                    }
+                  }
+
+      Result: Moved logo to the left. Will have to see if this breaks mobile
+
+    </a>
+
+    <b> theme.scss.liquid line 5575
+
+      Old:
+
+            #shopify-section-header {
+                .site-nav {
+                  padding:0;
+                  //margin: 25px 0 0;
+                  margin-top: -30px;
+                  margin-left: 0px;
+
+      New:
+
+              #shopify-section-header {
+                .site-nav {
+                padding:0;
+                //margin: 25px 0 0;
+                margin-top: -80px;
+                margin-left: 0px;
+
+
+      Result: Nav moves up to hid logo center, inline
+
+      </b>
+
+      <c> theme.scss.liquid line 5710
+
+        Old:
+              @media only screen and (min-width: 750px) {
+                  .site-header.logo--center {
+                  padding-top: 60px;
+                  }
+                  }
+
+        New:
+              @media only screen and (min-width: 750px) {
+                  .site-header.logo--center {
+                  padding-top: 40px;
+                  }
+                  }
+
+       Result: Little less room at the top of the screen
+
+     </c>
+
+
+     <d>
+
+       Old:
+             .site-header__logo-image {
+               display: block;
+
+               @include media-query($medium-up) {
+               }
+             }
+
+       New:
+             .site-header__logo-image {
+               display: block;
+
+               @include media-query($medium-up) {
+                 margin-top: -25px;
+               }
+             }
+
+       Result: less white space above logo
+
+
+     </d>
+
+
+     <e>
+
+        Old:
+
+             difference values for the n childs i added margins, this was a hack thing to do anyway
+
+        New:
+               #shopify-section-header {
+                  .site-nav {
+                  padding:0;
+                  //margin: 25px 0 0;
+                  margin-top: -80px;
+                  margin-left: 0px;
+
+                  a {
+                    font-family: "greycliff_cfbold";
+                    font-size: 25px;
+                    text-transform: uppercase;
+                    padding: 3px 30px;
+                    margin-bottom: 0;
+                  }
+
+                  li {
+
+                    &:nth-child(1) a {
+                      margin-left: 80px;
+                      margin-right: 20px;
+                    }
+
+                    &:nth-child(2) a {
+                      margin-left: 0px;
+                      margin-right: 20px;
+                    }
+
+                    &:nth-child(3) a {
+                      margin-left: 0px;
+                      margin-right: 20px;
+                    }
+
+                    &:nth-child(4) a {
+                      margin-left: 0px;
+                      margin-right: 20px;
+                    }
+
+                    &:nth-child(5) a {
+                      margin-left: 0px;
+                      margin-right: 20px;
+                    }
+
+                    &:nth-child(6) a {
+                      margin-left: 0px;
+                      margin-right: 0px;
+                    }
+                  }
+                  }
+
+        Result: list widths look good
+       </e>
+
+        <f> slideshow.liquid
+
+          old: <div style="max-width:1250px;margin:auto;" data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+
+          new: <div style="max-width:1600px;margin:auto;" data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+
+
+          result: slideshow goes to edge of page on my laptop
+
+        </f>
+
+
+        <g> theme.scss.liquid line: 9294
+
+          old: nothing, end of file
+
+          new :
+              /* --tim: force slideshow resize instead of cropping */
+                    .slideshow{
+                        height:auto; /* override the height value from the section.seettings */
+                    }
+                    .slideshow__image,
+                    .slideshow__link {
+                        position:relative;
+                    }
+                    .slideshow__image:not(.ratio-container),
+                    .ratio-container:after {
+                        padding-bottom:31.8%; /* here is the aspect ratio of images */
+                    }
+          result: good, now i need to get rid of whitespace under slideshow
+
+        </g>
+
+        <h>
+
+          overworte g with :
+
+
+
+              /* hide the slider on small screens */
+              @media (max-width: 767px){
+                .slideshow {
+                  display:none;
+                  visibility:hidden;
+                }
+              }
+
+        </h>
